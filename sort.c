@@ -8,6 +8,7 @@ int extraMemoryAllocated;
 // extraMemoryAllocated counts bytes of memory allocated
 void heapSort(int arr[], int n)
 {
+	
 }
 
 
@@ -15,6 +16,51 @@ void heapSort(int arr[], int n)
 // extraMemoryAllocated counts bytes of extra memory allocated
 void mergeSort(int pData[], int l, int r)
 {
+	if (l <r) {
+        
+        int o = (l + (r - l)) / (2);
+
+        mergeSort(pData, l, o);
+        mergeSort(pData, o + 1, r);
+        int* a = (int*) malloc((r - l + 1) * sizeof(int));
+        extraMemoryAllocated += (r - l + 1) * sizeof(int);
+        
+        int i =l;
+        int j =o + 1;
+        int k =0;
+
+        while ((i <=o) && (j <=r)) {
+            
+            if (pData[i] <pData[j]) {
+                
+                a[k++] =pData[i++];
+                
+            }
+            
+            else {
+                
+                a[k++] =pData[j++];
+                
+            }
+            
+        }
+
+        while (i <=o) {
+            
+            a[k++] =pData[i++];
+            
+        }
+
+        while (j <=r) {
+            
+            a[k++] =pData[j++];
+            
+        }
+
+        memcpy(pData + l, a, k * sizeof(int));
+    
+        free(a);
+    }
 }
 
 // parses input file to an integer array
